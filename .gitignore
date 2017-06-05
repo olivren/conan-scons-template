@@ -1,0 +1,4 @@
+test_package/.sconsign.dblite
+test_package/build
+*.pyc
+*.pdb

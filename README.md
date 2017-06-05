@@ -1,2 +1,9 @@
-# conan-scons-template
-A template of a Conan package manager recipee, for use with the SCons build tool
+# Conan CSons template
+
+A template for a [Conan package manager][1] recipee, that uses [SCons][2] as its build tool instead of CMake.
+It supports MSVC 2017 Pro and GCC, with a release and a debut build type.
+
+Inside the root directory, just run `conan test_package` or `conan test_package -s build_type=Debug`.
+
+[1]: https://github.com/lasote/conan
+[2]: https://bitbucket.org/scons/scons
