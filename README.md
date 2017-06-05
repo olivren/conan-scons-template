@@ -1,4 +1,4 @@
-# Conan CSons template
+# Conan SCons template
 
 A template for a [Conan package manager][1] recipee, that uses [SCons][2] as its build tool instead of CMake.
 It supports MSVC 2017 Pro and GCC, with a release and a debut build type.
