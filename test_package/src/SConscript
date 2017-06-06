@@ -3,17 +3,18 @@ import sys
 # Declare a custom argument, to select a debug or a release build.
 AddOption('--debug-build', action='store_true', help='debug build')
 
-# MSVC_USE_SCRIPT is a way to tell Scons which compiler to use. Ideally we'd use
-# MSVC_VERSION='15.0' and TARGET_ARCH='x86_64', but this approach doesn't work
-# anymore with MSVC 2017 (it does work for MSVC 2015 with MSVC_VERSION='14.0'.
-# env = Environment(MSVC_USE_SCRIPT=r'C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvars64.bat')
-# FIXME: Compiler, version, arch are hardcoded, not parametrized
-env = Environment(MSVC_VERSION="14.0", TARGET_ARCH="x86_64")
+# FIXME: Compiler, version, arch are hardcoded, not parameterized
+# Starting from MSVC 2017, MSVC_VERSION and TARGET_ARCH don't work anymore.
+# Use MSVC_USE_SCRIPT instead to locate the vcvarsall script.
+env = Environment(MSVC_VERSION='14.0', TARGET_ARCH='x86_64')
 
 is_windows = (env['PLATFORM'] == 'win32')
 is_linux = not is_windows
 is_debug = GetOption('debug_build')
 is_release = not is_debug
+
+if is_release:
+    env.Append(CPPDEFINES='NDEBUG')
 
 if is_windows and is_debug:
     env.Append(CXXFLAGS = '/MDd /Zi')
@@ -55,4 +56,4 @@ if not conan:
     sys.exit(1)
 
 env.MergeFlags(conan['conan'])
-env.Program("example", "example.cpp")
+env.Program('example', 'example.cpp')
